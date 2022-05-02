@@ -1,0 +1,43 @@
+.center {
+    text-align: center !important;
+}
+
+.whiteText {
+    color: white !important;
+}
+
+.centerAlignment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardSize {
+    width: 100%;
+    height: 100%;
+}
+
+.spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    margin:0px auto;
+ }
+
+.ng-select.custom {
+    border-bottom : 1px solid white !important;
+}
+.ng-select.custom .ng-select-container  {            
+    min-height: 0px;
+    border-radius: 0;
+    background-color: white;
+}
+
+
+
+ 
+
+
+  

@@ -1,0 +1,98 @@
+<div>
+    <nx-spinner nxSize="large" *ngIf="showSpinner" class="spinner"></nx-spinner>
+    <div nxLayout="grid">
+        <br/>
+        <div nxRow>
+            <div nxCol="12, 12, 12">
+                <h2 nxHeadline="section" class="nx-font-weight-bold center whiteText">
+                    ART COLLECTION
+                </h2>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div nxLayout="grid" *ngIf="showSelectOption">
+        <div nxRow>
+            <div nxCol="12, 12, 2"></div>
+            
+            <div nxCol="12, 12, 4">
+                <label>Filter:</label>
+                <ng-select [items]="filterOptions"
+                            bindLabel="style_title"
+                            bindValue="id"
+                            [multiple]="true"
+                            [(ngModel)]="filterId"
+                            (change) = "selectedFilter()"
+                            class="custom"
+                            >
+                </ng-select> 
+            </div>
+    
+            <div nxCol="12, 12, 4">
+                <label>Sort by:</label>
+                <ng-select [items]="sortOptions"
+                            bindLabel="sortType"
+                            bindValue="sortType"
+                            [(ngModel)]="sortType"
+                            (change) = "selectedSortType()"
+                            class="custom"
+                            >
+                </ng-select>    
+            </div>
+            <div nxCol="12, 12, 2"></div>
+        </div> 
+
+    </div>
+    <br/>
+    <div nxLayout="grid">
+        <div nxRow>
+            <div class="nx-margin-top-s" nxCol="12, 12, 3" *ngFor="let artworkData of artworkList; let i = index">
+                <nx-card class="cardSize">
+                    <figure nxFigure="1by1">
+                        <img
+                            src="https://www.artic.edu/iiif/2/{{artworkData.image_id}}/full/843,/0/default.jpg"
+                            (error)="handleMissingImage($event)" 
+                            alt="image can't be found"
+                        />
+                    </figure>
+                    <br/>
+                    <nx-card-header>
+                        <h6 nxHeadline="subsection-small" class="nx-margin-bottom-2m whiteText"
+                            >{{artworkData.title}}  
+                        </h6>
+                    </nx-card-header>
+                    <p nxHeadline="subsection-xsmall" >{{artworkData.artist_title}} </p>
+                    <p *ngIf="artworkData.date_start == artworkData.date_end">
+                        {{artworkData.place_of_origin}} ({{artworkData.date_start}}) 
+                    </p>
+                    <p *ngIf="artworkData.date_start != artworkData.date_end">
+                        {{artworkData.place_of_origin}}({{artworkData.date_start}} - {{artworkData.date_end}}) 
+                    </p>
+                    <span *ngFor="let materials of artworkData.material_titles, let j = index">
+                        <span *ngIf="artworkData.material_titles.length-1 > j">{{materials}}, </span>
+                        <span *ngIf="j == artworkData.material_titles.length -1 "> {{materials}} </span>
+                    </span>
+                </nx-card>
+            </div>
+        </div>
+    </div>
+    
+    <div nxLayout="grid" class="nx-margin-top-m nx-margin-bottom-m centerAlignment">
+        <div nxRow> 
+            <div nxCol="12,12,12" class="center"> 
+                <nx-pagination
+                    [nxCount]="count"
+                    [nxPage]="page"
+                    [nxPerPage]="perPage"
+                    nxType="advanced"
+                    (nxGoPrev)="prevPage()"
+                    (nxGoNext)="nextPage()"
+                    (nxGoPage)="goToPage($event)"
+                    class="nx-margin-top-s"
+                >
+                </nx-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+
